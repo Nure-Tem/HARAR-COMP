@@ -186,14 +186,13 @@ Responsive design — layouts adapt to different screen sizes.
 Maintainability — the project follows a structured React architecture.
 Modern tooling — Vite provides fast development and production builds.
 Clean UI — Tailwind CSS and shadcn/ui are used for consistent styling.
-
-
 Screenshots
 
-<img width="1892" height="875" alt="image" src="https://github.com/user-attachments/assets/e4c1413b-fcd3-4092-b90a-165f0a13beb0" />
-<img width="1926" height="897" alt="image" src="https://github.com/user-attachments/assets/91a9e897-b465-423f-98d8-ed7055561a63" />
-<img width="1925" height="885" alt="image" src="https://github.com/user-attachments/assets/3bb95f90-12cc-4d3f-9325-6abd4054e381" />
-<img width="1920" height="887" alt="image" src="https://github.com/user-attachments/assets/c57c811c-5b35-4c3c-ae4d-20531a12a55e" />
+Project screenshots can be added to this section as the application continues to evolve.
+
+Example:
+
+![Harar Comp](docs/screenshots/home.png)
 
 Recommended screenshot structure:
 
@@ -251,8 +250,3 @@ Welcome to your Lovable project
 REPLACE_WITH_PROJECT_ID
 How can I edit this code?
 Can I connect a custom domain to my Lovable project?
-
-
-
-
-
