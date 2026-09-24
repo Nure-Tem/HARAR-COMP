@@ -237,6 +237,14 @@ and typography defined in `tailwind.config.ts`.
 ## Screenshots
 
 <img width="2048" height="1447" alt="Harar Senior Secondary School" src="https://github.com/user-attachments/assets/d0201880-c1de-4dc1-b7fa-aafceec4d8d9" />
+<img width="1920" height="887" alt="image" src="https://github.com/user-attachments/assets/46b18e44-6089-4223-ae08-c92197a73ae8" />
+<img width="1925" height="885" alt="image" src="https://github.com/user-attachments/assets/c7f34bb3-1ae6-44d9-ac88-548b9a7945c4" />
+<img width="1926" height="897" alt="image" src="https://github.com/user-attachments/assets/8dde68d1-578f-492b-b12f-94cedab95607" />
+<img width="1892" height="875" alt="image" src="https://github.com/user-attachments/assets/1328422f-57c5-49ca-b8c6-8d43fcc90aa5" />
+
+
+
+
 
 ---
 
