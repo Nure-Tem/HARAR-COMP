@@ -193,7 +193,8 @@ Modern tooling — Vite provides fast development and production builds.
 Clean UI — Tailwind CSS and shadcn/ui are used for consistent styling.
 Screenshots
 
-Project screenshots can be added to this section as the application continues to evolve.
+<img width="2048" height="1447" alt="hsss image" src="https://github.com/user-attachments/assets/d0201880-c1de-4dc1-b7fa-aafceec4d8d9" />
+
 
 Example:
 
