@@ -1,258 +1,274 @@
 # Harar Comp
 
-A modern web application built to provide a clean and responsive digital experience for Harar-based services and information.
-
-Harar Comp is built with React, TypeScript, Vite, Tailwind CSS, and shadcn/ui, with a focus on responsive design, reusable components, and a modern user interface.
+The official website for **Harar Senior Secondary School** — a historic secondary school
+in Harar, Ethiopia, established in 1952. The site serves prospective students, current
+students, parents, staff, and the wider community.
 
 ---
 
 ## Overview
 
-Harar Comp is a web project developed as a modern React application.
+Harar Comp is a full-stack web application built with React, TypeScript, and Vite on the
+frontend, and Supabase for authentication, database, and file storage on the backend.
 
-The project focuses on providing users with a simple, responsive, and accessible interface while maintaining a clean and maintainable frontend architecture.
-
-The application is designed to work across:
-
-- Desktop
-- Tablet
-- Mobile devices
+The public site covers the school's academics, admissions process, news, gallery, and
+contact information. Authenticated users (students and staff) access a private portal for
+registration, document uploads, and a personal dashboard.
 
 ---
 
 ## Features
 
-The project includes a modern frontend experience with:
+**Public pages**
+- Home — hero section with school stats (2,500+ students, 50+ programs, 70+ years legacy),
+  features overview, latest news preview, and call-to-action
+- About — school history, core values (Excellence, Integrity, Innovation, Community),
+  and staff profiles
+- Academics — Grade 9–12 curriculum following the Ethiopian national curriculum, with
+  Natural Science and Social Science streams and their core subjects
+- Admissions — step-by-step application process, deadlines, and requirements
+- News — school news and announcements
+- Gallery — photo gallery of school life and events
+- Contact — contact form, school address (Harar City, near Jugol Gate), phone, and email
 
-- Responsive design
-- Modern React-based interface
-- Reusable UI components
-- Responsive navigation
-- Clean and structured layouts
-- Interactive user interface
-- Mobile-friendly design
-- Fast Vite development environment
-- TypeScript type safety
-- Tailwind CSS styling
+**Authentication & portal**
+- Sign in and registration via Supabase Auth (email/password and Google OAuth)
+- Student registration form with photo upload and multi-file document upload
+  (PDF, DOC, images, video, audio)
+- Student dashboard — registration status, document checklist, upcoming events,
+  profile card, and quick actions
+- Protected routes — unauthenticated users are redirected to `/auth`
+
+**Platform**
+- Supabase Storage integration for student photos and documents
+- Progressive Web App (PWA) — installable with offline-ready manifest
+- Responsive, mobile-first layout across all screen sizes
 
 ---
 
 ## Technology Stack
 
-### Frontend
-
-- React
-- TypeScript
-- Vite
-
-### UI & Styling
-
-- Tailwind CSS
-- shadcn/ui
+| Category | Technology |
+|---|---|
+| Framework | [React 18](https://react.dev/) |
+| Language | [TypeScript 5](https://www.typescriptlang.org/) |
+| Build tool | [Vite 5](https://vitejs.dev/) |
+| Styling | [Tailwind CSS 3](https://tailwindcss.com/) |
+| UI components | [shadcn/ui](https://ui.shadcn.com/) (Radix UI primitives) |
+| Routing | [React Router v6](https://reactrouter.com/) |
+| Backend / Auth / DB | [Supabase](https://supabase.com/) (PostgreSQL, Auth, Storage) |
+| Data fetching | [TanStack Query v5](https://tanstack.com/query/latest) |
+| Forms | [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/) |
+| Icons | [Lucide React](https://lucide.dev/) |
+| Charts | [Recharts](https://recharts.org/) |
+| Testing | [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/) |
+| PWA | [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) |
 
 ---
 
 ## Project Architecture
 
-The application follows a component-based React architecture.
+The project is a Vite + React SPA with a Supabase backend. All credentials are provided
+via environment variables — never hardcoded. The Supabase client is initialised once in
+`src/integrations/supabase/client.ts` and imported wherever needed. Auth state is managed
+through Supabase Auth listeners; protected routes check for an active session and redirect
+to `/auth` if none exists. File uploads go through `src/lib/storage.ts`, which wraps the
+Supabase Storage API and returns public URLs.
+
+---
+
+## Project Structure
 
 ```text
-Harar Comp
-│
-├── React Application
-│
-├── Pages / Views
-│
-├── Reusable Components
-│
-├── UI Components
-│
-├── Styling
-│   └── Tailwind CSS
-│
-└── Vite
-    └── Development & Build Tooling
-
-The project uses reusable components and a structured frontend architecture to make the application easier to maintain and extend.
-
-Project Structure
-
-The project follows a standard Vite + React application structure.
-
 HARAR-COMP/
-│
-├── public/
-│
+├── public/                         # Static assets (favicon, PWA icons, robots.txt)
 ├── src/
+│   ├── assets/                     # Images (hero-school.jpg)
 │   ├── components/
+│   │   ├── home/                   # HeroSection, FeaturesSection, NewsSection, CTASection
+│   │   ├── layout/                 # Header, Footer, Layout wrapper
+│   │   ├── NavLink.tsx
+│   │   └── ui/                     # shadcn/ui component library (40+ components)
+│   ├── hooks/                      # use-mobile, use-toast
+│   ├── integrations/
+│   │   └── supabase/               # Supabase client and generated database types
+│   ├── lib/
+│   │   ├── storage.ts              # Supabase Storage upload/delete utilities
+│   │   └── utils.ts                # cn() helper
 │   ├── pages/
-│   ├── App.tsx
-│   ├── main.tsx
-│   └── ...
-│
+│   │   ├── Index.tsx               # Home
+│   │   ├── About.tsx
+│   │   ├── Academics.tsx
+│   │   ├── Admissions.tsx
+│   │   ├── Auth.tsx                # Sign in / Sign up (email + Google OAuth)
+│   │   ├── Contact.tsx
+│   │   ├── Dashboard.tsx           # Authenticated student dashboard
+│   │   ├── Gallery.tsx
+│   │   ├── News.tsx
+│   │   ├── NotFound.tsx
+│   │   └── Register.tsx            # Student registration form with file uploads
+│   ├── test/                       # Vitest setup and example tests
+│   ├── App.tsx                     # Root component and route definitions
+│   ├── main.tsx                    # Entry point
+│   └── index.css                   # Global styles and Tailwind directives
+├── supabase/
+│   ├── config.toml                 # Supabase local dev configuration
+│   └── migrations/                 # Database migration SQL files
+├── .env.local                      # Local environment variables (never commit)
+├── .gitignore
 ├── package.json
-├── vite.config.*
-├── tsconfig.*
-├── tailwind.config.*
-└── README.md
+├── tailwind.config.ts
+├── tsconfig.json
+└── vite.config.ts
+```
 
+---
 
+## Getting Started
 
+### Prerequisites
 
+- [Node.js](https://nodejs.org/) v18 or later
+- npm (bundled with Node.js)
+- A [Supabase](https://supabase.com/) project with Auth and Storage enabled
 
+Verify your installation:
 
-The exact structure may evolve as the project is developed.
-
-Getting Started
-Prerequisites
-
-Make sure you have installed:
-
-Node.js
-npm
-
-You can verify your installation with:
-
+```bash
 node --version
 npm --version
-Installation
+```
 
-Clone the repository:
+### Installation
 
+```bash
+# Clone the repository
 git clone https://github.com/Nure-Tem/HARAR-COMP.git
-
-Navigate into the project:
-
 cd HARAR-COMP
 
-Install dependencies:
-
+# Install dependencies
 npm install
+```
 
-Start the development server:
+Create a `.env.local` file in the project root with your Supabase credentials:
 
+```bash
+VITE_SUPABASE_URL=https://<your-project-id>.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=<your-anon-public-key>
+```
+
+> Never commit `.env` or `.env.local` files. They are excluded by `.gitignore`.
+
+---
+
+## Development
+
+```bash
 npm run dev
+```
 
-Vite will provide a local development URL in the terminal.
+Opens the app at `http://localhost:8080/` with hot module replacement.
 
-Development
+---
 
-During development, Vite provides a fast development environment with hot module replacement.
+## Production Build
 
-Run:
-
-npm run dev
-
-Changes made to the source code will be reflected in the development environment automatically.
-
-Production Build
-
-To create a production build:
-
+```bash
 npm run build
+```
 
-To preview the production build locally:
+Output is written to `dist/`. Preview locally with:
 
+```bash
 npm run preview
-Deployment
+```
 
-The application can be deployed to a modern frontend hosting platform that supports Vite applications.
+---
 
-The project is currently deployed at:
+## Running Tests
 
-https://harar-comp.vercel.app/
+```bash
+npm test
+```
 
-Responsive Design
+---
 
-Harar Comp is designed to provide a consistent experience across different screen sizes.
+## Deployment
 
-The interface is intended to support:
+The project is a standard Vite SPA and can be deployed to any static hosting platform
+(Netlify, Vercel, GitHub Pages, etc.). Set the build command to `npm run build` and the
+publish directory to `dist/`.
 
-Desktop screens
-Laptop screens
-Tablets
-Mobile phones
+Set these environment variables in your hosting provider's dashboard:
 
-Responsive layouts are implemented using Tailwind CSS utilities.
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
 
-UI Components
+---
 
-The project uses shadcn/ui components together with Tailwind CSS to create reusable and consistent interface elements.
+## Responsive Design
 
-This approach allows the application to maintain a consistent visual system while keeping components flexible and maintainable.
+The UI is built mobile-first with Tailwind CSS. Breakpoints follow the standard Tailwind
+scale (`sm`, `md`, `lg`, `xl`). The `use-mobile` hook provides programmatic breakpoint
+access where needed in components.
 
-Development Principles
+---
 
-The project follows several development principles:
+## UI Components
 
-Type safety — TypeScript is used throughout the application.
-Component reusability — common interface elements are implemented as reusable components.
-Responsive design — layouts adapt to different screen sizes.
-Maintainability — the project follows a structured React architecture.
-Modern tooling — Vite provides fast development and production builds.
-Clean UI — Tailwind CSS and shadcn/ui are used for consistent styling.
-Screenshots
+All UI primitives come from [shadcn/ui](https://ui.shadcn.com/), which wraps
+[Radix UI](https://www.radix-ui.com/) for accessibility. Components live in
+`src/components/ui/` and can be customised freely. The design uses a custom colour palette
+and typography defined in `tailwind.config.ts`.
 
-<img width="2048" height="1447" alt="hsss image" src="https://github.com/user-attachments/assets/d0201880-c1de-4dc1-b7fa-aafceec4d8d9" />
+---
 
+## Development Principles
 
-Example:
+- Credentials are injected at build time via `import.meta.env` — never hardcoded
+- Supabase is the single source of truth for auth and database state
+- Database types are generated from the schema (`src/integrations/supabase/types.ts`)
+- File uploads are centralised in `src/lib/storage.ts` with consistent error handling
+- Forms use React Hook Form with Zod schemas for client-side validation
+- TanStack Query manages server state and caching
 
-![Harar Comp](docs/screenshots/home.png)
+---
 
-Recommended screenshot structure:
+## Screenshots
 
-docs/
-└── screenshots/
-    ├── home.png
-    ├── page-2.png
-    ├── page-3.png
-    └── mobile.png
-Live Project
+<img width="2048" height="1447" alt="Harar Senior Secondary School" src="https://github.com/user-attachments/assets/d0201880-c1de-4dc1-b7fa-aafceec4d8d9" />
 
-Live Website:
+---
 
-https://harar-comp.vercel.app/
+## Live Project
 
-Repository
+Coming soon.
 
-GitHub:
+---
 
-https://github.com/Nure-Tem/HARAR-COMP
+## Repository
 
-Future Improvements
+[https://github.com/Nure-Tem/HARAR-COMP](https://github.com/Nure-Tem/HARAR-COMP)
 
-Possible future improvements may include:
+---
 
-Additional features and pages
-More interactive functionality
-Improved mobile experience
-Additional accessibility improvements
-Performance optimizations
-Additional project documentation
-Expanded testing
-Additional screenshots and documentation
-License
+## Future Improvements
 
-No open-source license file is currently published in this repository.
+- Connect the student registration form to the Supabase database
+- Online admissions form with actual document submission to Supabase Storage
+- Staff and admin content management interface
+- Grade and attendance portal for students
+- Push notifications for news and events
+- Amharic / Harari language support
 
-All rights reserved by the project owner unless otherwise stated.
+---
 
-Author
+## License
 
-Nuredin Temam
+All rights reserved by Harar Senior Secondary School.
 
-Harar Comp
+---
 
-Built with React, TypeScript, Vite, Tailwind CSS, and shadcn/ui.
+## Author
 
-
-### One important thing
-
-I intentionally **removed all the Lovable-specific instructions** such as:
-
-```text
-Welcome to your Lovable project
-REPLACE_WITH_PROJECT_ID
-How can I edit this code?
-Can I connect a custom domain to my Lovable project?
+Developed by [Nure-Tem](https://github.com/Nure-Tem).
