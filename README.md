@@ -96,6 +96,11 @@ HARAR-COMP/
 ├── tailwind.config.*
 └── README.md
 
+
+
+
+
+
 The exact structure may evolve as the project is developed.
 
 Getting Started
